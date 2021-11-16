@@ -2,7 +2,7 @@ const charactersAPI = new APIHandler("https://minions-api.herokuapp.com/");
 const cloneDiv = document.querySelector(".character-info").cloneNode(true)
 
 function showCharacter(character) {
-
+  
   cloneDiv.querySelector(".name").innerHTML += `<span>${character.data.name}</span>`
   cloneDiv.querySelector(".occupation").innerHTML += `<span>${character.data.occupation}</span>`
   cloneDiv.querySelector(".cartoon").innerHTML += `<span>${character.data.cartoon}</span>`
@@ -10,6 +10,8 @@ function showCharacter(character) {
 
   document.querySelector(".characters-container").appendChild(cloneDiv)
 }
+
+// reset = () => $(cloneDiv).remove();
 
 function loadCharactersFromAPI() {
   charactersAPI.getFullList()
@@ -42,6 +44,7 @@ window.addEventListener('load', () => {
 
     charactersAPI.getOneRegister(id)
     .then(character => {
+      // reset(character);
       showCharacter(character)
       console.log("esta es mi funcion id y este es el nombre del caracter ", character.data.name)
     })
@@ -94,6 +97,7 @@ window.addEventListener('load', () => {
 
       charactersAPI.updateOneRegister(id, info)
       .then((character) => {
+        
         showCharacter(character)
         buttonChangeColor.classList.add("active")})
       .catch(err => { 
